@@ -21,10 +21,10 @@ def show(remote, command, EPA):
 
 
 def main(router):
-    ATTuser="emoore08_mnsepax"
-    ATTpassword="d9LzT-Q7"
-    TACACSuser="emoore08"
-    TACACSpassword="4A18Abnranger!"
+    ATTuser="***redacted***"
+    ATTpassword="***redacted***"
+    TACACSuser="***redacted***"
+    TACACSpassword="***redacted***"
     commands=("sh bgp ipv4 uni sum | b Neighbor","sh bgp ipv6 uni sum | b Neighbor","sh ppp multi | i Se")
     print("\n"+time.ctime())
     try:
