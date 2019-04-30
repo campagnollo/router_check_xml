@@ -37,7 +37,7 @@ def main(router):
                 for i in range (0,len(child)):
                     siterouter[child[i].tag] = child[i].text
                 break
-        if siterouter['routerID']:
+        if siterouter["routerID"]:#Throws exception if xml element is not found, gracefully terminating script
             pass
     except socket.gaierror: #Exception if IP isn't found
         print("Device not identified on DNS")
@@ -78,7 +78,7 @@ def main(router):
         print(siterouter[routerID])
         print(siterouter[location])
         print("Unable to connect to device")
-        print("Call OOBM:{}".format(siterouter["OOBM"]))
+        print("Call OOBM:"+siterouter["OOBM"])
         exit()
 
     else:
