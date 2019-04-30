@@ -2,14 +2,14 @@
 <!-- This is just non-working sample data -->
 <epa xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<site IP="192.168.1.2">
-		<routerID>MYROUTER</routerID>
+		<routerID>USEPAXMYROUTER</routerID>
 		<location>Boston, MA</location>
 		<critical>yes</critical>
 		<ownership>ATT</ownership>
 		<OOBM>(123)-456-7890</OOBM>
 	</site>
 	<site IP="192.168.1.3">
-		<routerID>THEIRROUTER</routerID>
+		<routerID>USEPAXTHEIRROUTER</routerID>
 		<location>Chelmsford, MA</location>
 		<critical>no</critical>
 		<ownership>ATT</ownership>
