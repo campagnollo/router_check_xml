@@ -91,7 +91,6 @@ def main(router):
     for i in range (0,len(commands)):
        try:
           remote.connect(hostname=ip, port=22,username=user,password=password, timeout=10)
-          remote_transport=remote.get_transport()
        except paramiko.AuthenticationException:
           print("Authentication failed")
           exit()
