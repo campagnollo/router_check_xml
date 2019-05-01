@@ -68,7 +68,6 @@ def main(router):
         remote=paramiko.SSHClient()
         remote.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         remote.connect(hostname=ip, port=22,username=user,password=password, timeout=10)
-        remote_transport=remote.get_transport()
 
     except paramiko.AuthenticationException:
         print("Authentication failed")
