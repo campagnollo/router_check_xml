@@ -9,10 +9,10 @@ def show(remote, command, EPA):
     stdin, stdout, stderr=remote.exec_command(command)
     result = stdout.read()
     i=250
-    if not(EPA):
+    if not EPA:
         try:
-            while result[i]!="U" and result[i]!="N" and result[i]!="P" and result [i]!="p" and result[i]!="S":
-               i+=1
+            while result[i] != "U" and result[i] != "N" and result[i] != "P" and result [i] != "p" and result[i] != "S":
+               i += 1
         except IndexError:
             pass
         print(result[i:]+"\n") #print the output sans banner
@@ -34,7 +34,7 @@ def main(router):
         siterouter={}
         for child in root.findall('site'):
             if child.get('IP') == ip:
-                for i in range (0,len(child)):
+                for i in range(0,len(child)):
                     siterouter[child[i].tag] = child[i].text
                 break
         if siterouter["routerID"]:#Throws exception if xml element is not found, gracefully terminating script
@@ -50,7 +50,7 @@ def main(router):
         exit()
 
     if siterouter["critical"] == "yes":
-        for i in range (0,5):
+        for i in range(0,5):
             print("*****critical******")
 
     if siterouter["ownership"]=="EPA": #Use these credentials if with EPA
