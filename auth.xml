@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<auth>
+  <att>
+    <user>john_doe</user>
+    <pass>password</pass>
+  </att>
+  <epa>
+    <user>john_doe</user>
+    <pass>password</password>
+  </epa>
+</auth>
