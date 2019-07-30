@@ -11,7 +11,7 @@ def show(remote, command, EPA):
     i=250
     if not EPA:
         try:
-            while result[i] != "U" and result[i] != "N" and result[i] != "P" and result [i] != "p" and result[i] != "S":
+            while result[i] != "U" and result[i] != "N" and result[i] != "P" and result[i] != "p" and result[i] != "S":
                i += 1
         except IndexError:
             pass
@@ -21,10 +21,14 @@ def show(remote, command, EPA):
 
 
 def main(router):
-    ATTuser="***redacted***"
-    ATTpassword="***redacted***"
-    TACACSuser="***redacted***"
-    TACACSpassword="***redacted***"
+    authtree=et.parse("auth.xml")
+    authroot=authtree.getroot()
+    ATTuser=authroot[0][0].text
+    ATTpassword = authroot[0][1].text
+    TACACSuser = authroot[1][0].text
+    TACACSpassword = authroot[1][1].text
+
+
     commands=("sh bgp ipv4 uni sum | b Neighbor","sh bgp ipv6 uni sum | b Neighbor","sh ppp multi | i Se")
     print("\n"+time.ctime())
     try:
@@ -37,12 +41,12 @@ def main(router):
                 for i in range(0,len(child)):
                     siterouter[child[i].tag] = child[i].text
                 break
-        if siterouter["routerID"]:#Throws exception if xml element is not found, gracefully terminating script
+        if siterouter['routerID']:
             pass
     except socket.gaierror: #Exception if IP isn't found
         print("Device not identified on DNS")
         exit()
-    except KeyError: #Exception if IP not found in sites.xml
+    except KeyError: #Exception if IP not found in dictionary "d"
         print("Device not found on critical db")
         exit()
     except UnboundLocalError: #Exception if IP not found in database
@@ -53,19 +57,19 @@ def main(router):
         for i in range(0,5):
             print("*****critical******")
 
-    if siterouter["ownership"]=="EPA": #Use these credentials if with EPA
-        user=TACACSuser
-        password=TACACSpassword
-        EPA=True
+    if siterouter["ownership"] == "EPA": #Use these credentials if with EPA
+        user = TACACSuser
+        password = TACACSpassword
+        EPA = True
 
- else:  #Use credentials if with AT&T
-        user=ATTuser
-        password=ATTpassword
+    else:  #Use credentials if with AT&T
+        user = ATTuser
+        password = ATTpassword
         EPA=False
 
     print("\r") #White space
     try:
-        remote=paramiko.SSHClient()
+        remote = paramiko.SSHClient()
         remote.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         remote.connect(hostname=ip, port=22,username=user,password=password, timeout=10)
 
@@ -77,7 +81,7 @@ def main(router):
         print(siterouter[routerID])
         print(siterouter[location])
         print("Unable to connect to device")
-        print("Call OOBM:"+siterouter["OOBM"])
+        print("Call OOBM:{}".format(siterouter["OOBM"]))
         exit()
 
     else:
