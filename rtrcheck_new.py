@@ -20,7 +20,7 @@ def show(remote, command, EPA):
         print(result)
 
 def main(router):
-    authtree = et.parse("auth.xml")#pull authentication data
+    authtree = et.parse("/home/campagnollo/Documents/Python/router_check_xml-master/auth.xml")#pull authentication data
     authroot = authtree.getroot()
     commands = ("sh bgp ipv4 uni sum | b Neighbor", "sh bgp ipv6 uni sum | b Neighbor", "sh ppp multi | i Se")
     print("\n" + time.ctime())
@@ -71,8 +71,8 @@ def main(router):
         exit()
 
     except socket.error:
-        print(siterouter[routerID])
-        print(siterouter[location])
+        print(siterouter['routerID'])
+        print(siterouter['location'])
         print("Unable to connect to device")
         print("Call OOBM:{}".format(siterouter["OOBM"]))
         exit()
@@ -103,3 +103,4 @@ if __name__ == '__main__':
         print("Incorrect interpreter being run. Please use Python 2.x")
         exit()
     main(sys.argv)
+    
