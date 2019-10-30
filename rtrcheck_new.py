@@ -19,7 +19,10 @@ def show(remote, command, EPA):
     else:
         print(result)
 
-def main(router=[0,"192.168.1.1"]):
+def main(router):
+    if router[0]=="/home/campagnollo/Documents/Python/router_check_xml-master/rtrcheck.py": #if no arguments passed, give default
+        router[0]=0
+        router.append("192.168.1.2")
     authtree = et.parse("/home/campagnollo/Documents/Python/router_check_xml-master/auth.xml")#pull authentication data
     authroot = authtree.getroot()
     commands = ("sh bgp ipv4 uni sum | b Neighbor", "sh bgp ipv6 uni sum | b Neighbor", "sh ppp multi | i Se")
@@ -29,12 +32,12 @@ def main(router=[0,"192.168.1.1"]):
         tree = et.parse("sites.xml")
         root = tree.getroot()
         siterouter = {}
-        for child in root.findall('site'):
+        for child in root.findall('site'): #find xml and load dict with site info
             if child.get('IP') == ip:
                 for i in range(0, len(child)):
                     siterouter[child[i].tag] = child[i].text
-                break
-        if siterouter['routerID']:
+                break #site found and loaded. Leave FOR loop
+        if siterouter['routerID']: #check if dict is loaded. If not, exception thrown.
             pass
     except socket.gaierror:  # Exception if IP isn't found
         print("Device not identified on DNS")
