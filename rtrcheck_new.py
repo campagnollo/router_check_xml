@@ -19,7 +19,7 @@ def show(remote, command, EPA):
     else:
         print(result)
 
-def main(router):
+def main(router=[0,"192.168.1.1"]):
     authtree = et.parse("/home/campagnollo/Documents/Python/router_check_xml-master/auth.xml")#pull authentication data
     authroot = authtree.getroot()
     commands = ("sh bgp ipv4 uni sum | b Neighbor", "sh bgp ipv6 uni sum | b Neighbor", "sh ppp multi | i Se")
