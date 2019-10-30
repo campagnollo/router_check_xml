@@ -42,7 +42,7 @@ def main(router):
     except socket.gaierror:  # Exception if IP isn't found
         print("Device not identified on DNS")
         exit()
-    except KeyError:  # Exception if IP not found in dictionary "d"
+    except KeyError:  # Exception if IP not found in dictionary "siterouter"
         print("Device not found on critical db")
         exit()
     except UnboundLocalError:  # Exception if IP not found in database
