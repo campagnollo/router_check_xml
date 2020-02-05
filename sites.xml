@@ -12,7 +12,7 @@
 		<routerID>USEPAXTHEIRROUTER</routerID>
 		<location>Chelmsford, MA</location>
 		<critical>no</critical>
-		<ownership>ATT</ownership>
+		<ownership>EPA</ownership>
 		<OOBM>(345)-678-9012</OOBM>
 	</site>
 </epa>
