@@ -6,6 +6,17 @@ import xml.etree.ElementTree as et
 
 
 def show(remote, command, EPA):
+    """
+        Executes a command on a remote system and prints the result.
+
+        Parameters:
+        remote (paramiko.SSHClient): The SSH client connected to the remote system.
+        command (str): The command to be executed on the remote system.
+        EPA (bool): A flag indicating whether the system is with EPA.
+
+        Returns:
+        None
+        """
     stdin, stdout, stderr = remote.exec_command(command)
     result = stdout.read()
     i = 250
@@ -20,23 +31,32 @@ def show(remote, command, EPA):
         print(result)
 
 def main(router):
-    if router[0]=="/home/campagnollo/Documents/Python/router_check_xml-master/rtrcheck.py": #if no arguments passed, give default
+    """
+        Main function to check the router.
+
+        Parameters:
+        router (list): The router to be checked.
+
+        Returns:
+        None
+        """
+    if router[0]=="/home/campagnollo/Documents/Python/router_check_xml-master/rtrcheck.py":
         router[0]=0
         router.append("192.168.1.2")
-    authtree = et.parse("/home/campagnollo/Documents/Python/router_check_xml-master/auth.xml")#pull authentication data
+    authtree = et.parse("/home/campagnollo/Documents/Python/router_check_xml-master/auth.xml")
     authroot = authtree.getroot()
     commands = ("sh bgp ipv4 uni sum | b Neighbor", "sh bgp ipv6 uni sum | b Neighbor", "sh ppp multi | i Se")
     print("\n" + time.ctime())
     try:
-        ip = socket.gethostbyname(router[1])  # ID device name or pass IP address
+        ip = socket.gethostbyname(router[1])
         tree = et.parse("sites.xml")
         root = tree.getroot()
         siterouter = {}
-        for child in root.findall('site'): #find xml and load dict with site info
+        for child in root.findall('site'):
             if child.get('IP') == ip:
                 for i in range(0, len(child)):
                     siterouter[child[i].tag] = child[i].text
-                break #site found and loaded. Leave FOR loop
+                break
         if siterouter['routerID']: #check if dict is loaded. If not, exception thrown.
             pass
     except socket.gaierror:  # Exception if IP isn't found
@@ -63,7 +83,7 @@ def main(router):
     user = authroot[own][0].text
     password = authroot[own][1].text
 
-    print("\r")  # White space
+    print("\r")
     try:
         remote = paramiko.SSHClient()
         remote.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -94,12 +114,14 @@ def main(router):
             print("Authentication failed")
             exit()
         else:
-            show(remote, commands[i], EPA)  # If connected, run through 'show' commands
+            show(remote, commands[i], EPA)
         remote.close()
 
 
 if __name__ == '__main__':
-    # """Python interpreter check"""
+    """
+        Entry point of the script. Checks the Python interpreter version and calls the main function.
+    """
     try:
         assert sys.version_info[0] < 3
     except AssertionError:
