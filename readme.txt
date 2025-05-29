@@ -87,7 +87,7 @@ Output to CSV/JSON for reporting
 Integration with CI tools like Jenkins or GitHub Actions
 
 📎 Related Technologies
-Python 3.x
+Python 2.x
 
 Paramiko – SSH library for Python
 
